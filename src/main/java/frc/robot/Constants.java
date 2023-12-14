@@ -26,9 +26,10 @@ public final class Constants {
     double frontLeftModuleSteerOffsetRadians = Math.toRadians(217.6);
   }
   public static class SwerveConstants {
-    double wheelDiamiter = 0.1016;
-    double driveReduction = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 60.0);
-    boolean driveInverted = true;
+    public double wheelDiamiter = 0.1016;
+    public double driveReduction = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 60.0);
+    public static boolean driveInverted = true;
+    public static boolean steerInverted = true;
     double steerReduction = (15.0 / 32.0) * (10.0 / 60.0);
     double falcon300RoundsPerMinute = 6380;
     double ticksPerRotations = 2048;
