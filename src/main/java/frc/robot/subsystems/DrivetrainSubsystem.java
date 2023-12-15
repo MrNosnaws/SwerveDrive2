@@ -36,14 +36,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
         SwerveDriveKinematics testKinematics = new SwerveDriveKinematics(
             frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
         );
-        SwerveModuleState testState = new SwerveModuleState("test");
-        SwerveModulePosition testPosition = new SwerveModulePosition("okay");
+
+        //talking abt chassisspeeds: "This is useful in situations where you have to convert a forward velocity, sideways velocity, and an angular velocity into individual module states."
+        ChassisSpeeds speeds = new ChassisSpeeds(1.0, 3.0, 1.5) //(1 m/s forward, 3 m/s to the left, rotation at 1.5 radians/s)
+        SwerveModuleStates[] moduleStates = testKinematics.toSwerveModuleStates(speeds); //this takes the kinematics with our 4 modules and converts the forwards and sideways velocities we want to a SwerveModuleState to be applied to the modules.
+        SwerveModuleState frontLeftState = moduleStates[0];
+        SwerveMOduleState backRightLocation = moduleStates[3];
     }
     
-
-//what ive found so i remember:
-//Translation2d object is an object that's declared with two ints, that represent the module's location relative to the center of the chassis. 
-//the Kinematics objects is made of 4 Translation2d objects.
-
-
+    public void setModuleStates() {
+        //given 4 SwerveModuleStates, use wheel.setState(speed, angle) to set them all
+    }
 }
