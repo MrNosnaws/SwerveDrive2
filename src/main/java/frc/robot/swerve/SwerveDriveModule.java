@@ -22,23 +22,18 @@ public final class SwerveDriveModule {
         canCoderConfiguration.magnetOffsetDegrees = 0;
         canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
 
-        
-        
         driveMotor = new TalonFX(driveMotorChannel);
-
         steerMotor = new TalonFX(steerMotorChannel);
-
         canCoder = new CANCoder(canCoderChannel);
 
         driveMotor.setInverted(Constants.SwerveConstants.driveInverted);
-
         steerMotor.setInverted(Constants.SwerveConstants.steerInverted);
         
 
 
     }
 
-    public final void RunSteerMotor(double desiredAngle) {
+    public final void runSteerMotor(double desiredAngle) {
         double currentAngle = canCoder.getAbsolutePosition();
         double velocity = currentAngle - desiredAngle;
         steerMotor.set(TalonFXControlMode.Velocity, velocity);
