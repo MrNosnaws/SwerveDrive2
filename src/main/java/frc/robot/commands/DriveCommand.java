@@ -29,7 +29,7 @@ public class DriveCommand extends CommandBase {
 
     @Override 
     public void execute() {
-        
+        drivetrain.drive(xAxis.get(), yAxis.get(), zAxis.get()); //is this right
     }
 
     @Override
