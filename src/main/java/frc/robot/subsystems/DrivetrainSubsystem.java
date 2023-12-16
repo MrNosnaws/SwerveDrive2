@@ -3,8 +3,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.swerve.SwerveDriveModule;
+import frc.robot.Constants.SwerveConstants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
 
@@ -13,37 +15,49 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private final SwerveDriveModule backLeftWheel;
     private final SwerveDriveModule backRightWheel;
 
-    public DrivetrainSubsystem () {
+    private final Translation2d frontLeftLocation;
+    private final Translation2d frontRightLocation;
+    private final Translation2d backLeftLocation;
+    private final Translation2d backRightLocation;
 
+    private final SwerveDriveKinematics kinematics;
+
+    public DrivetrainSubsystem () {
         frontLeftWheel = new SwerveDriveModule(0, 0, 0);
         frontRightWheel = new SwerveDriveModule(0, 0, 0);
         backLeftWheel = new SwerveDriveModule(0, 0, 0);
         backRightWheel = new SwerveDriveModule(0, 0, 0);
-        
-        //stole these from WPIlib docs so they should make sense
-        Translation2d frontLeftLocation = new Translation2d(0.4, 0.4);
-        Translation2d frontRightLocation = new Translation2d(0.4, -0.4);
-        Translation2d backLeftLocation = new Translation2d(-0.4, 0.4);
-        Translation2d backRightLocation = new Translation2d(-0.4, -0.4);
-    }
-    
-    //TESTING STUFF
-    public void testing() {
-        //"The SwerveDriveKinematics class accepts a variable number of constructor arguments, with each argument 
-        //being the location of a swerve module relative to the robot center as a Translation2d object. "\
 
-        SwerveDriveKinematics testKinematics = new SwerveDriveKinematics(
+        //stole these from WPILib docs so should make sense
+        frontLeftLocation = new Translation2d(0.4, 0.4);
+        frontRightLocation = new Translation2d(0.4, -0.4);
+        backLeftLocation = new Translation2d(-0.4, 0.4);
+        backRightLocation = new Translation2d(-0.4, -0.4);
+        
+        kinematics = new SwerveDriveKinematics(
             frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
         );
-
-        //talking abt chassisspeeds: "This is useful in situations where you have to convert a forward velocity, sideways velocity, and an angular velocity into individual module states."
-        ChassisSpeeds speeds = new ChassisSpeeds(1.0, 3.0, 1.5) //(1 m/s forward, 3 m/s to the left, rotation at 1.5 radians/s)
-        SwerveModuleStates[] moduleStates = testKinematics.toSwerveModuleStates(speeds); //this takes the kinematics with our 4 modules and converts the forwards and sideways velocities we want to a SwerveModuleState to be applied to the modules.
-        SwerveModuleState frontLeftState = moduleStates[0];
-        SwerveMOduleState backRightLocation = moduleStates[3];
     }
     
-    public void setModuleStates() {
-        //given 4 SwerveModuleStates, use wheel.setState(speed, angle) to set them all
+    public void drive(double forwardSpeed, double rightSpeed, double radians) {
+        ChassisSpeeds speeds = new ChassisSpeeds(forwardSpeed, rightSpeed, radians);
+        SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
+
+        frontLeftWheel.setState(states[0]);
+        frontRightWheel.setState(states[1]);
+        backLeftWheel.setState(states[2]);
+        backRightWheel.setState(states[3]);
+    }
+
+    //TESTING STUFF
+    public void testing() {
+
+        ChassisSpeeds testSpeed = new ChassisSpeeds(1.0, 3.0, 1.5); //(1 m/s forward, 3 m/s to the left, rotation at 1.5 radians/s)
+        SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(testSpeed);
+
+        frontLeftWheel.setState(moduleStates[0]);
+        frontRightWheel.setState(moduleStates[1]);
+        backLeftWheel.setState(moduleStates[2]);
+        backRightWheel.setState(moduleStates[3]);
     }
 }

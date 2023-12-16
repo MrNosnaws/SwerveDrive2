@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -33,5 +35,7 @@ public final class Constants {
     double steerReduction = (15.0 / 32.0) * (10.0 / 60.0);
     double falcon300RoundsPerMinute = 6380;
     double ticksPerRotations = 2048;
+
+
   }
 }

@@ -7,7 +7,11 @@ import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants;
+import frc.robot.Constants.SwerveConstants;
 
 
 public final class SwerveDriveModule {
@@ -30,13 +34,14 @@ public final class SwerveDriveModule {
         steerMotor.setInverted(Constants.SwerveConstants.steerInverted);
     }
 
-    public final void runSteerMotor(double desiredAngle) {
-        double currentAngle = canCoder.getAbsolutePosition();
-        double velocity = currentAngle - desiredAngle;
-        steerMotor.set(TalonFXControlMode.Velocity, velocity);
-    }
-
+    //should setState take a SwerveModuleState or a speed value and rotation value? swervemodulestates for now.
+    //also make rotation into radians wtf are radians
     public void setState(SwerveModuleState state) {
-        state.speed;
+        Rotation2d testRotation = new Rotation2d(Math.toRadians(45));
+        SwerveModuleState actualState = SwerveModuleState.optimize(state, testRotation);
+        System.out.println(actualState.speedMetersPerSecond);
+        System.out.println(actualState.angle);
+        //set move motor
+        //set rotation motor
     }
 }
