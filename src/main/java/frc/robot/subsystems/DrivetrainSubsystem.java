@@ -6,7 +6,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.swerve.SwerveDriveModule;
-import frc.robot.Constants.SwerveConstants;
+import frc.robot.Constants.SwerveConstants.Channels;
 
 public class DrivetrainSubsystem extends SubsystemBase {
 
@@ -15,27 +15,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private final SwerveDriveModule backLeftWheel;
     private final SwerveDriveModule backRightWheel;
 
-    private final Translation2d frontLeftLocation;
-    private final Translation2d frontRightLocation;
-    private final Translation2d backLeftLocation;
-    private final Translation2d backRightLocation;
-
     private final SwerveDriveKinematics kinematics;
 
     public DrivetrainSubsystem () {
-        frontLeftWheel = new SwerveDriveModule(0, 0, 0);
-        frontRightWheel = new SwerveDriveModule(0, 0, 0);
-        backLeftWheel = new SwerveDriveModule(0, 0, 0);
-        backRightWheel = new SwerveDriveModule(0, 0, 0);
+        frontLeftWheel = new SwerveDriveModule(Channels.FRONT_LEFT_DRIVE_MOTOR_CHANNEL, Channels.FRONT_LEFT_STEER_MOTOR_CHANNEL, Channels.FRONT_LEFT_CANCODER_CHANNEL);
+        frontRightWheel = new SwerveDriveModule(Channels.FRONT_RIGHT_DRIVE_MOTOR_CHANNEL, Channels.FRONT_RIGHT_STEER_MOTOR_CHANNEL, Channels.FRONT_RIGHT_CANCODER_CHANNEL);
+        backLeftWheel = new SwerveDriveModule(Channels.BACK_LEFT_DRIVE_MOTOR_CHANNEL, Channels.BACK_LEFT_STEER_MOTOR_CHANNEL, Channels.BACK_LEFT_CANCODER_CHANNEL);
+        backRightWheel = new SwerveDriveModule(Channels.BACK_RIGHT_DRIVE_MOTOR_CHANNEL, Channels.BACK_RIGHT_STEER_MOTOR_CHANNEL, Channels.BACK_RIGHT_CANCODER_CHANNEL);
 
-        //stole these from WPILib docs so should make sense
-        frontLeftLocation = new Translation2d(0.4, 0.4);
-        frontRightLocation = new Translation2d(0.4, -0.4);
-        backLeftLocation = new Translation2d(-0.4, 0.4);
-        backRightLocation = new Translation2d(-0.4, -0.4);
-        
         kinematics = new SwerveDriveKinematics(
-            frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation
+            new Translation2d(0.4, 0.4), //front left
+            new Translation2d(0.4, -0.4), //front right
+            new Translation2d(-0.4, 0.4), //back left
+            new Translation2d(-0.4, -0.4) //back right
         );
     }
     
@@ -47,6 +39,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         frontRightWheel.setState(states[1]);
         backLeftWheel.setState(states[2]);
         backRightWheel.setState(states[3]);
+    }
+
+    public void setModuleStates(SwerveModuleState[] states) {
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, null, 0, 0, 0);
     }
 
     public void stop() {
