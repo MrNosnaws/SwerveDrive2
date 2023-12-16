@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -36,6 +34,21 @@ public final class Constants {
     double falcon300RoundsPerMinute = 6380;
     double ticksPerRotations = 2048;
 
+    public static class Channels {
+      public static int FRONT_LEFT_DRIVE_MOTOR_CHANNEL = 0;
+      public static int FRONT_RIGHT_DRIVE_MOTOR_CHANNEL = 0;
+      public static int BACK_LEFT_DRIVE_MOTOR_CHANNEL = 0;
+      public static int BACK_RIGHT_DRIVE_MOTOR_CHANNEL = 0;
 
+      public static int FRONT_LEFT_STEER_MOTOR_CHANNEL = 0;
+      public static int FRONT_RIGHT_STEER_MOTOR_CHANNEL = 0;
+      public static int BACK_LEFT_STEER_MOTOR_CHANNEL = 0;
+      public static int BACK_RIGHT_STEER_MOTOR_CHANNEL = 0;
+
+      public static int FRONT_LEFT_CANCODER_CHANNEL = 0;
+      public static int FRONT_RIGHT_CANCODER_CHANNEL = 0;
+      public static int BACK_LEFT_CANCODER_CHANNEL = 0;
+      public static int BACK_RIGHT_CANCODER_CHANNEL = 0;
+    }
   }
 }

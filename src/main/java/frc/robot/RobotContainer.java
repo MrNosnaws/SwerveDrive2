@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
+// import frc.robot.Constants.OperatorConstants;
+// import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -26,7 +26,9 @@ public class RobotContainer {
 
   private final Joystick joystick0 = new Joystick(0);
   private final Joystick joystick1 = new Joystick(1);
+
   private JoystickButton triggerButton;
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     configureBindings();
@@ -43,6 +45,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     triggerButton = new JoystickButton(joystick0, 0);
+    System.out.println(triggerButton);
 
     drivetrain.setDefaultCommand(new DriveCommand(drivetrain, () ->joystick0.getX(),() ->joystick0.getY(),() ->joystick1.getY()));
   }
