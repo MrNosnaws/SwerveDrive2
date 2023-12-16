@@ -49,6 +49,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         backRightWheel.setState(states[3]);
     }
 
+    public void stop() {
+        //stop motors;
+    }
+
     //TESTING STUFF
     public void testing() {
 
