@@ -34,23 +34,27 @@ public final class SwerveDriveModule {
         steerMotor.setInverted(Constants.SwerveConstants.steerInverted);
     }
 
-    //should setState take a SwerveModuleState or a speed value and rotation value? swervemodulestates for now.
-    //also make rotation into radians wtf are radians
     public void setState(SwerveModuleState state) {
-        Rotation2d testRotation = new Rotation2d(Math.toRadians(45));
-        SwerveModuleState actualState = SwerveModuleState.optimize(state, testRotation);
-        System.out.println(actualState.speedMetersPerSecond);
-        System.out.println(actualState.angle);
+        SwerveModuleState actualState = SwerveModuleState.optimize(state, getCurrentState().angle);
+        double metersPerSecond = actualState.speedMetersPerSecond;
+        double degreesOrSomething = (actualState.angle).getDegrees();
         //set move motor
+        driveMotor.set(TalonFXControlMode.Velocity, metersPerSecond);
         //set rotation motor
+        steerMotor.set(TalonFXControlMode.Velocity, degreesOrSomething);
     }
 
-    public SwerveModuleState getState() {
-        return new SwerveModuleState( //how to get drivemotor velocity and steermotor angle?
-            driveMotor.getSelectedSensorVelocity() * SwerveConstants.driveVelocityConversionFactor, 
-            new Rotation2d(
-                steerMotor.getSelectedSensorPosition() * SwerveConstants.anglePos
-            )
-        );
+    public SwerveModuleState getCurrentState() { //how to convert between TICKSPERSECOND and METERSPERSECOND?
+        // return new SwerveModuleState( 
+
+        //     new Rotation2d(
+
+        //     )
+        // );
+        return new SwerveModuleState();
     }
 }
+
+//todo
+//how to convert between ticks/s to m/s and convert between radians and degrees or something
+//what to put into drivemotor and setmotor in terms of ControlMode and what unit to use in ControlMode

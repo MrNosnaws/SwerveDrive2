@@ -34,7 +34,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public void drive(double xSpeed, double ySpeed, double radians) {
         ChassisSpeeds speeds = new ChassisSpeeds(xSpeed, ySpeed, radians);
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
+    }
 
+    public void setModuleStates(SwerveModuleState[] states) {
         frontLeftWheel.setState(states[0]);
         frontRightWheel.setState(states[1]);
         backLeftWheel.setState(states[2]);
@@ -43,17 +45,5 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     public void stop() {
         //stop motors;
-    }
-
-    //TESTING STUFF
-    public void testing() {
-
-        ChassisSpeeds testSpeed = new ChassisSpeeds(1.0, 3.0, 1.5); //(1 m/s forward, 3 m/s to the left, rotation at 1.5 radians/s)
-        SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(testSpeed);
-
-        frontLeftWheel.setState(moduleStates[0]);
-        frontRightWheel.setState(moduleStates[1]);
-        backLeftWheel.setState(moduleStates[2]);
-        backRightWheel.setState(moduleStates[3]);
     }
 }

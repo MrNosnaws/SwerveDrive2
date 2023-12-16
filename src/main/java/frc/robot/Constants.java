@@ -34,8 +34,9 @@ public final class Constants {
     double falcon300RoundsPerMinute = 6380;
     public static double TICKS_PER_ROTATION = 2048;
 
-    public static double drivePosConversionFactor = (Math.PI * WHEEL_DIAMETER / TICKS_PER_ROTATION) * DRIVE_REDUCTION;
-    public static double driveVelocityConversionFactor = drivePosConversionFactor / 60.0;
+    //stolen from firefly idkw hat they do
+    //public static double drivePosConversionFactor = (Math.PI * WHEEL_DIAMETER / TICKS_PER_ROTATION) * DRIVE_REDUCTION;
+    //public static double driveVelocityConversionFactor = drivePosConversionFactor / 60.0;
     
     public static class Channels {
       public static int FRONT_LEFT_DRIVE_MOTOR_CHANNEL = 0;
