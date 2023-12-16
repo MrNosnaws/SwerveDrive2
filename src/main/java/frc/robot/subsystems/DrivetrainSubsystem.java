@@ -15,16 +15,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     public DrivetrainSubsystem () {
 
-        frontLeftWheel = new SwerveDriveModule(0, 0, 0);
-        frontRightWheel = new SwerveDriveModule(0, 0, 0);
-        backLeftWheel = new SwerveDriveModule(0, 0, 0);
-        backRightWheel = new SwerveDriveModule(0, 0, 0);
-        
-        //stole these from WPIlib docs so they should make sense
         Translation2d frontLeftLocation = new Translation2d(0.4, 0.4);
         Translation2d frontRightLocation = new Translation2d(0.4, -0.4);
         Translation2d backLeftLocation = new Translation2d(-0.4, 0.4);
         Translation2d backRightLocation = new Translation2d(-0.4, -0.4);
+
+        frontLeftWheel = new SwerveDriveModule(0, 0, 0, frontLeftLocation);
+        frontRightWheel = new SwerveDriveModule(0, 0, 0, frontRightLocation);
+        backLeftWheel = new SwerveDriveModule(0, 0, 0, backLeftLocation);
+        backRightWheel = new SwerveDriveModule(0, 0, 0, backRightLocation);
+        
+        //stole these from WPIlib docs so they should make sense
     }
 
     public void testRunSteerMotor() {

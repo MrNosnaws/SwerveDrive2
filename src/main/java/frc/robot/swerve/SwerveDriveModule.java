@@ -6,7 +6,10 @@ import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 
 
@@ -15,14 +18,12 @@ public final class SwerveDriveModule {
     private final TalonFX driveMotor;
     private final TalonFX steerMotor;
 
-    public SwerveDriveModule (int driveMotorChannel, int steerMotorChannel, int canCoderChannel) {
+    public SwerveDriveModule (int driveMotorChannel, int steerMotorChannel, int canCoderChannel, Translation2d translation2d) {
 
         CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
         canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;        
         canCoderConfiguration.magnetOffsetDegrees = 0;
         canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
-
-        
         
         driveMotor = new TalonFX(driveMotorChannel);
 
