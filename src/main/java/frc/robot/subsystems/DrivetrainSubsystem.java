@@ -26,11 +26,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         Translation2d backLeftLocation = new Translation2d(-0.4, 0.4);
         Translation2d backRightLocation = new Translation2d(-0.4, -0.4);
     }
-
-    public void testRunSteerMotor() {
-        frontLeftWheel.runSteerMotor(45);
-    }
-
+    
     //TESTING STUFF
     public void testing() {
         //"The SwerveDriveKinematics class accepts a variable number of constructor arguments, with each argument 

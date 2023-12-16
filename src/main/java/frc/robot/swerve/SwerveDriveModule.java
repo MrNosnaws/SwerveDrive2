@@ -28,9 +28,6 @@ public final class SwerveDriveModule {
 
         driveMotor.setInverted(Constants.SwerveConstants.driveInverted);
         steerMotor.setInverted(Constants.SwerveConstants.steerInverted);
-        
-
-
     }
 
     public final void runSteerMotor(double desiredAngle) {
@@ -39,4 +36,7 @@ public final class SwerveDriveModule {
         steerMotor.set(TalonFXControlMode.Velocity, velocity);
     }
 
+    public void setState(SwerveModuleState state) {
+        state.speed;
+    }
 }

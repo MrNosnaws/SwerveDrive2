@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+  private final DriveCommand driveCommand = new DriveCommand();
 
   private final Joystick joystick0 = new Joystick(0);
   private final Joystick joystick1 = new Joystick(1);
@@ -44,7 +45,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     testButton = new JoystickButton(joystick0, 0);
 
     testButton.whileTrue(new DriveCommands());
@@ -57,7 +57,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return null;
-
   }
 }
 
