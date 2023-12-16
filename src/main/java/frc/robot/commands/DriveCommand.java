@@ -34,7 +34,7 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true; //change later
+        return false;
     }
 
     @Override
