@@ -6,6 +6,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.swerve.SwerveDriveModule;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.Channels;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -24,10 +25,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
         backRightWheel = new SwerveDriveModule(Channels.BACK_RIGHT_DRIVE_MOTOR_CHANNEL, Channels.BACK_RIGHT_STEER_MOTOR_CHANNEL, Channels.BACK_RIGHT_CANCODER_CHANNEL);
 
         kinematics = new SwerveDriveKinematics(
-            new Translation2d(0.4, 0.4), //front left
-            new Translation2d(0.4, -0.4), //front right
-            new Translation2d(-0.4, 0.4), //back left
-            new Translation2d(-0.4, -0.4) //back right
+            SwerveConstants.frontLeftTranslation,
+            SwerveConstants.frontRightTranslation,
+            SwerveConstants.backLeftTranslation,
+            SwerveConstants.frontRightTranslation
         );
     }
     
