@@ -39,7 +39,6 @@ public final class SwerveDriveModule {
 
         double metersPerSecond = actualState.speedMetersPerSecond;
         double RPM = (metersPerSecond*60)/SwerveConstants.WHEEL_DIAMETER;
-        double 
         
         double degreesOrSomething = (actualState.angle).getDegrees();
 

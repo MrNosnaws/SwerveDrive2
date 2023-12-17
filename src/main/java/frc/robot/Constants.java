@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -31,14 +32,15 @@ public final class Constants {
     public static double STEER_REDUCTION = (15.0 / 32.0) * (10.0 / 60.0);
     public static double FALCON_300_ROUNDS_PER_MINUTE = 6380;
     public static double TALONFX_VELOCITY_CONSTANT = 217;
+    
+    public static Translation2d frontLeftTranslation = new Translation2d(0.4, 0.4);
+    public static Translation2d frontRightTranslation = new Translation2d(0.4, -0.4);
+    public static Translation2d backLeftTranslation = new Translation2d(-0.4, 0.4);
+    public static Translation2d backRightTranslation = new Translation2d(-0.4, -0.4);
 
     public static boolean driveInverted = true;
     public static boolean steerInverted = true;
 
-    //stolen from firefly idkw hat they do
-    //public static double drivePosConversionFactor = (Math.PI * WHEEL_DIAMETER / TICKS_PER_ROTATION) * DRIVE_REDUCTION;
-    //public static double driveVelocityConversionFactor = drivePosConversionFactor / 60.0;
-    
     public static class Channels {
       public static int FRONT_LEFT_DRIVE_MOTOR_CHANNEL = 0;
       public static int FRONT_RIGHT_DRIVE_MOTOR_CHANNEL = 0;
