@@ -36,8 +36,13 @@ public final class SwerveDriveModule {
 
     public void setState(SwerveModuleState state) {
         SwerveModuleState actualState = SwerveModuleState.optimize(state, getCurrentState().angle);
+
         double metersPerSecond = actualState.speedMetersPerSecond;
+        double RPM = (metersPerSecond*60)/SwerveConstants.WHEEL_DIAMETER;
+        double 
+        
         double degreesOrSomething = (actualState.angle).getDegrees();
+
         //set move motor
         driveMotor.set(TalonFXControlMode.Velocity, metersPerSecond);
         //set rotation motor

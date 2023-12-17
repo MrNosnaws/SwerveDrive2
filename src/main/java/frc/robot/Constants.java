@@ -28,11 +28,12 @@ public final class Constants {
   public static class SwerveConstants {
     public static double WHEEL_DIAMETER = 0.1016;
     public static double DRIVE_REDUCTION = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 60.0);
+    public static double STEER_REDUCTION = (15.0 / 32.0) * (10.0 / 60.0);
+    public static double FALCON_300_ROUNDS_PER_MINUTE = 6380;
+    public static double TALONFX_VELOCITY_CONSTANT = 217;
+
     public static boolean driveInverted = true;
     public static boolean steerInverted = true;
-    double steerReduction = (15.0 / 32.0) * (10.0 / 60.0);
-    double falcon300RoundsPerMinute = 6380;
-    public static double TICKS_PER_ROTATION = 2048;
 
     //stolen from firefly idkw hat they do
     //public static double drivePosConversionFactor = (Math.PI * WHEEL_DIAMETER / TICKS_PER_ROTATION) * DRIVE_REDUCTION;

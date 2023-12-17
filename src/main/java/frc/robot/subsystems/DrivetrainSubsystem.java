@@ -34,6 +34,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public void drive(double xSpeed, double ySpeed, double radians) {
         ChassisSpeeds speeds = new ChassisSpeeds(xSpeed, ySpeed, radians);
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
+        setModuleStates(states);
     }
 
     public void setModuleStates(SwerveModuleState[] states) {
