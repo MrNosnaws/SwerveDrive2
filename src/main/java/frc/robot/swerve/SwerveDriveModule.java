@@ -49,7 +49,7 @@ public final class SwerveDriveModule {
         steerMotor.set(TalonFXControlMode.Velocity, degreesOrSomething);
     }
 
-    public SwerveModuleState getCurrentState() { //how to convert between TICKSPERSECOND and METERSPERSECOND?
+    public SwerveModuleState getCurrentState() {
         // return new SwerveModuleState( 
 
         //     new Rotation2d(
@@ -62,4 +62,3 @@ public final class SwerveDriveModule {
 
 //todo
 //how to convert between ticks/s to m/s and convert between radians and degrees or something
-//what to put into drivemotor and setmotor in terms of ControlMode and what unit to use in ControlMode
