@@ -30,8 +30,14 @@ public final class Constants {
     public static double WHEEL_DIAMETER = 0.1016;
     public static double DRIVE_REDUCTION = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 60.0);
     public static double STEER_REDUCTION = (15.0 / 32.0) * (10.0 / 60.0);
-    public static double FALCON_300_ROUNDS_PER_MINUTE = 6380;
+    public static double FALCON300_ROUNDS_PER_MINUTE = 6380;
     public static double TALONFX_VELOCITY_CONSTANT = 217;
+    public static double TALONFX_TICKS_PER_ROTATION = 1; //need real
+    public static double MAX_VELOCITY = (FALCON300_ROUNDS_PER_MINUTE / 60) * DRIVE_REDUCTION * WHEEL_DIAMETER * Math.PI; //need real
+
+    public static double STEER_CONVERTION = ((2 * Math.PI) / TALONFX_TICKS_PER_ROTATION) * STEER_REDUCTION;
+    public static double DRIVE_POSITION_CONVERSION = ((Math.PI*WHEEL_DIAMETER) / TALONFX_TICKS_PER_ROTATION) * DRIVE_REDUCTION;
+    public static double DRIVE_VELOCITY_CONVERSION = DRIVE_POSITION_CONVERSION / 60; //assumes encoder ticks represent one minute
     
     public static Translation2d frontLeftTranslation = new Translation2d(0.4, 0.4);
     public static Translation2d frontRightTranslation = new Translation2d(0.4, -0.4);

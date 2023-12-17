@@ -37,27 +37,38 @@ public final class SwerveDriveModule {
     public void setState(SwerveModuleState state) {
         SwerveModuleState actualState = SwerveModuleState.optimize(state, getCurrentState().angle);
 
-        double metersPerSecond = actualState.speedMetersPerSecond;
-        double RPM = (metersPerSecond*60)/SwerveConstants.WHEEL_DIAMETER;
-        
-        double degreesOrSomething = (actualState.angle).getDegrees();
+        double desiredMetersPerSecond = actualState.speedMetersPerSecond;       
+        double desiredRadians = actualState.angle.getRadians();
 
-        //set move motor
-        driveMotor.set(TalonFXControlMode.Velocity, metersPerSecond);
-        //set rotation motor
-        steerMotor.set(TalonFXControlMode.Velocity, degreesOrSomething);
+        
+        //take desired velocity and divide it by our max velocity to make a percentage
+        driveMotor.set(TalonFXControlMode.PercentOutput, 
+        desiredMetersPerSecond / SwerveConstants.MAX_VELOCITY
+        );
+
+        /* set steer motor:
+        in constants, we take 2π/ticksPerRotation, which finds the radians per motor tick.
+        we then multiply that by steer reduction which scales it to the correct gear ratio.
+
+        we take our desired radians and divide by the steer conversion to convert desiredRadians to motor ticks.
+        */
+        steerMotor.set(TalonFXControlMode.Position, 
+        desiredRadians / SwerveConstants.STEER_CONVERTION
+        );
     }
 
     public SwerveModuleState getCurrentState() {
-        // return new SwerveModuleState( 
+        /* to get drive motor value:
+        in constants, we take π*wheelDiameter, which finds the circumference of the wheel in meters.
+        we take that and divide it by ticksPerRotation, which gives us the number of meters it moves per tick.
+        we multiply it by drive reduction which scales it to the correct gear ratio.
 
-        //     new Rotation2d(
-
-        //     )
-        // );
-        return new SwerveModuleState();
+        we take all that and divide it by 60 to get m/s/tick. This assumed that the first value represents one minute.
+        we divide desiredM/S by this value to convert desiredMetersPerSecond to motor ticks.
+        */
+        return new SwerveModuleState(
+            driveMotor.getSelectedSensorVelocity() * SwerveConstants.DRIVE_VELOCITY_CONVERSION,
+            new Rotation2d(steerMotor.getSelectedSensorPosition() * SwerveConstants.STEER_CONVERTION)
+            );
     }
 }
-
-//todo
-//how to convert between ticks/s to m/s and convert between radians and degrees or something
