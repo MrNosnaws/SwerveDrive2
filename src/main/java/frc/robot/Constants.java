@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 
@@ -38,36 +39,47 @@ public final class Constants {
     public static double STEER_CONVERTION = ((2 * Math.PI) / TALONFX_TICKS_PER_ROTATION) * STEER_REDUCTION;
     public static double DRIVE_POSITION_CONVERSION = ((Math.PI*WHEEL_DIAMETER) / TALONFX_TICKS_PER_ROTATION) * DRIVE_REDUCTION;
     public static double DRIVE_VELOCITY_CONVERSION = DRIVE_POSITION_CONVERSION / 60; //assumes encoder ticks represent one minute
-    
+    public static double CICADA_DRIVETRAIN_TRACKWIDTH_METERS = 0;
+    public static double CICADA_DRIVETRAIN_WHEELBASE_METERS = 0;
+    public static double MAX_ANGULAR_VELOCITY = Math.PI * 6;
+
     public static Translation2d frontLeftTranslation = new Translation2d(0.4, 0.4);
     public static Translation2d frontRightTranslation = new Translation2d(0.4, -0.4);
     public static Translation2d backLeftTranslation = new Translation2d(-0.4, 0.4);
     public static Translation2d backRightTranslation = new Translation2d(-0.4, -0.4);
 
+    public static Translation2d cicadaFrontLeftTranslation = new Translation2d(CICADA_DRIVETRAIN_TRACKWIDTH_METERS / 2.0, CICADA_DRIVETRAIN_WHEELBASE_METERS / 2.0);
+    public static Translation2d cicadaFrontRightTranslation = new Translation2d(CICADA_DRIVETRAIN_TRACKWIDTH_METERS / 2.0, CICADA_DRIVETRAIN_WHEELBASE_METERS / 2.0);
+    public static Translation2d cicadaBackLeftTranslation = new Translation2d(CICADA_DRIVETRAIN_TRACKWIDTH_METERS / 2.0, CICADA_DRIVETRAIN_WHEELBASE_METERS / 2.0);
+    public static Translation2d cicadaBackRightTranslation = new Translation2d(CICADA_DRIVETRAIN_TRACKWIDTH_METERS / 2.0, CICADA_DRIVETRAIN_WHEELBASE_METERS / 2.0);
+
     public static boolean driveInverted = true;
     public static boolean steerInverted = true;
 
-    public static class CANIDs {
+
+
+    public static class CicadaCANIDs {
         public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 12;
         public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 11;
         public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 10;
-        public static final double FRONT_LEFT_MODULE_STEER_OFFSET_RADIANS = 4.335 - (Math.PI / 2);
+        public static final Rotation2d FRONT_LEFT_MODULE_STEER_OFFSET_RADIANS = new Rotation2d(4.335 - (Math.PI / 2));
 
         public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 3;
         public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 2;
         public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 1;
-        public static final double FRONT_RIGHT_MODULE_STEER_OFFSET_RADIANS = 4.858 - (Math.PI / 2);
+        public static final Rotation2d FRONT_RIGHT_MODULE_STEER_OFFSET_RADIANS = new Rotation2d(4.858 - (Math.PI / 2));
 
         public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 9;
         public static final int BACK_LEFT_MODULE_STEER_MOTOR = 8;
         public static final int BACK_LEFT_MODULE_STEER_ENCODER = 7;
-        public static final double BACK_LEFT_MODULE_STEER_OFFSET_RADIANS = 1.612 - (Math.PI / 2);
+        public static final Rotation2d BACK_LEFT_MODULE_STEER_OFFSET_RADIANS = new Rotation2d(1.612 - (Math.PI / 2));
 
         public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 6;
         public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 5;
         public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 4;
-        public static final double BACK_RIGHT_MODULE_STEER_OFFSET_RADIANS = 1.179 - (Math.PI / 2);
+        public static final Rotation2d BACK_RIGHT_MODULE_STEER_OFFSET_RADIANS = new Rotation2d(1.179 - (Math.PI / 2));
     }
+
     public static class Channels {
       public static int FRONT_LEFT_DRIVE_MOTOR_CHANNEL = 0;
       public static int FRONT_RIGHT_DRIVE_MOTOR_CHANNEL = 0;

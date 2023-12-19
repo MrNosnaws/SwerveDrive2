@@ -1,11 +1,12 @@
 package frc.robot.swerve;
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 //import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -16,18 +17,18 @@ import frc.robot.Constants.SwerveConstants;
 
 public final class SwerveModuleNeos {
     protected final CANCoder canCoder;
-    private final TalonFX driveMotor;
-    private final TalonFX steerMotor;
+    private final CANSparkMax driveMotor;
+    private final CANSparkMax steerMotor;
 
-    public SwerveModuleNeos (int driveMotorChannel, int steerMotorChannel, int canCoderChannel) {
+    public SwerveModuleNeos (int canCoderChannel, int driveCanCoderChannel, int steerCanCoderChannel, Rotation2d steerOffset) {
 
         CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
         canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;        
-        canCoderConfiguration.magnetOffsetDegrees = 0;
+        canCoderConfiguration.magnetOffsetDegrees = -steerOffset.getDegrees();
         canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
 
-        driveMotor = new TalonFX(driveMotorChannel);
-        steerMotor = new TalonFX(steerMotorChannel);
+        driveMotor = new CANSparkMax(driveCanCoderChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
+        steerMotor = new CANSparkMax(driveCanCoderChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
         canCoder = new CANCoder(canCoderChannel);
 
         driveMotor.setInverted(Constants.SwerveConstants.driveInverted);
@@ -42,33 +43,19 @@ public final class SwerveModuleNeos {
 
         
         //take desired velocity and divide it by our max velocity to make a percentage
-        driveMotor.set(TalonFXControlMode.PercentOutput, 
-        desiredMetersPerSecond / SwerveConstants.MAX_VELOCITY
-        );
+        driveMotor.set(
+            desiredMetersPerSecond / SwerveConstants.MAX_VELOCITY);
 
-        /* set steer motor:
-        in constants, we take 2π/ticksPerRotation, which finds the radians per motor tick.
-        we then multiply that by steer reduction which scales it to the correct gear ratio.
-
-        we take our desired radians and divide by the steer conversion to convert desiredRadians to motor ticks.
-        */
-        steerMotor.set(TalonFXControlMode.Position, 
-        desiredRadians / SwerveConstants.STEER_CONVERTION
+        steerMotor.getPIDController().setReference( 
+        desiredRadians, CANSparkMax.ControlType.kPosition
         );
     }
 
     public SwerveModuleState getCurrentState() {
-        /* to get drive motor value:
-        in constants, we take π*wheelDiameter, which finds the circumference of the wheel in meters.
-        we take that and divide it by ticksPerRotation, which gives us the number of meters it moves per tick.
-        we multiply it by drive reduction which scales it to the correct gear ratio.
-
-        we take all that and divide it by 60 to get m/s/tick. This assumed that the first value represents one minute.
-        we divide desiredM/S by this value to convert desiredMetersPerSecond to motor ticks.
-        */
         return new SwerveModuleState(
-            driveMotor.getSelectedSensorVelocity() * SwerveConstants.DRIVE_VELOCITY_CONVERSION,
-            new Rotation2d(steerMotor.getSelectedSensorPosition() * SwerveConstants.STEER_CONVERTION)
+            driveMotor.getEncoder().getVelocity(),
+            new Rotation2d(
+                steerMotor.getEncoder().getPosition() % (Math.PI * 2)) //keeps the radians < 2pi
             );
     }
 }
