@@ -7,7 +7,7 @@ package frc.robot;
 // import frc.robot.Constants.OperatorConstants;
 // import frc.robot.commands.Autos;
 import frc.robot.commands.DriveCommand;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.NeoDrivetrainSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
+  private final NeoDrivetrainSubsystem drivetrain = new NeoDrivetrainSubsystem();
 
   private final Joystick joystick0 = new Joystick(0);
   private final Joystick joystick1 = new Joystick(1);
