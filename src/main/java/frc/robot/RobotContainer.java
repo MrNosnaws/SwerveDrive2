@@ -23,7 +23,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final NeoDrivetrainSubsystem drivetrain = new NeoDrivetrainSubsystem();
-
   private final Joystick joystick0 = new Joystick(0);
   private final Joystick joystick1 = new Joystick(1);
 
@@ -47,7 +46,7 @@ public class RobotContainer {
     triggerButton = new JoystickButton(joystick0, 0);
     System.out.println(triggerButton);
 
-    drivetrain.setDefaultCommand(new DriveCommand(drivetrain, () ->joystick0.getX(),() ->joystick0.getY(),() ->joystick1.getY()));
+    drivetrain.setDefaultCommand(new DriveCommand(drivetrain, () ->joystick0.getX(), () ->joystick0.getY(), () ->joystick1.getX()));
   }
 
   /**
