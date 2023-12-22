@@ -33,9 +33,12 @@ public final class Constants {
     public static double STEER_REDUCTION = (15.0 / 32.0) * (10.0 / 60.0);
     public static double FALCON300_ROUNDS_PER_MINUTE = 6380;
     public static double TALONFX_VELOCITY_CONSTANT = 217;
-    public static double TALONFX_TICKS_PER_ROTATION = 1; //need real
+    public static double TALONFX_TICKS_PER_ROTATION = 1;
     public static double MAX_VELOCITY = (FALCON300_ROUNDS_PER_MINUTE / 60) * DRIVE_REDUCTION * WHEEL_DIAMETER * Math.PI; //need real
 
+    public static double NEO_ROUNDS_PER_MINUTE = 5676;
+    public static double CICADA_MAX_VELOCITY = (NEO_ROUNDS_PER_MINUTE / 60) * DRIVE_REDUCTION * WHEEL_DIAMETER * Math.PI;
+    
     public static double STEER_CONVERTION = ((2 * Math.PI) / TALONFX_TICKS_PER_ROTATION) * STEER_REDUCTION;
     public static double DRIVE_POSITION_CONVERSION = ((Math.PI*WHEEL_DIAMETER) / TALONFX_TICKS_PER_ROTATION) * DRIVE_REDUCTION;
     public static double DRIVE_VELOCITY_CONVERSION = DRIVE_POSITION_CONVERSION / 60; //assumes encoder ticks represent one minute

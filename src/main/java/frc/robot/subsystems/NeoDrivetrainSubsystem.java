@@ -21,7 +21,7 @@ public class NeoDrivetrainSubsystem extends SubsystemBase {
     private final SwerveDriveKinematics kinematics;
 
     public NeoDrivetrainSubsystem() {
-        frontLeftWheel = new SwerveModuleNeos(CicadaCANIDs.FRONT_LEFT_MODULE_DRIVE_MOTOR, CicadaCANIDs.FRONT_LEFT_MODULE_STEER_MOTOR, Channels.FRONT_LEFT_CANCODER_CHANNEL, CicadaCANIDs.FRONT_LEFT_MODULE_STEER_OFFSET_RADIANS);
+        frontLeftWheel = new SwerveModuleNeos(CicadaCANIDs.FRONT_LEFT_MODULE_DRIVE_MOTOR, CicadaCANIDs.FRONT_LEFT_MODULE_STEER_MOTOR, CicadaCANIDs.FRONT_LEFT_MODULE_STEER_ENCODER, CicadaCANIDs.FRONT_LEFT_MODULE_STEER_OFFSET_RADIANS);
         frontRightWheel = new SwerveModuleNeos(CicadaCANIDs.FRONT_RIGHT_MODULE_DRIVE_MOTOR, CicadaCANIDs.FRONT_RIGHT_MODULE_STEER_MOTOR, CicadaCANIDs.FRONT_RIGHT_MODULE_STEER_ENCODER, CicadaCANIDs.FRONT_RIGHT_MODULE_STEER_OFFSET_RADIANS);
         backLeftWheel = new SwerveModuleNeos(CicadaCANIDs.BACK_LEFT_MODULE_DRIVE_MOTOR, CicadaCANIDs.BACK_LEFT_MODULE_STEER_MOTOR, CicadaCANIDs.BACK_LEFT_MODULE_STEER_ENCODER, CicadaCANIDs.BACK_LEFT_MODULE_STEER_OFFSET_RADIANS);
         backRightWheel = new SwerveModuleNeos(CicadaCANIDs.BACK_RIGHT_MODULE_DRIVE_MOTOR, CicadaCANIDs.BACK_RIGHT_MODULE_STEER_MOTOR, CicadaCANIDs.BACK_RIGHT_MODULE_STEER_ENCODER, CicadaCANIDs.BACK_RIGHT_MODULE_STEER_OFFSET_RADIANS);        
@@ -53,14 +53,29 @@ public class NeoDrivetrainSubsystem extends SubsystemBase {
         rotationSpeed * SwerveConstants.MAX_ANGULAR_VELOCITY);
         System.out.println("XSpeed: "+xSpeed*SwerveConstants.MAX_VELOCITY+" YSpeed: "+ySpeed*SwerveConstants.MAX_VELOCITY+" RotationSpeed: "+rotationSpeed*SwerveConstants.MAX_ANGULAR_VELOCITY);
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
-        setModuleStates(states);
+        setModuleStatesValues(states);
     }
 
-    public void setModuleStates(SwerveModuleState[] states) {
+    public void setModuleStatesArray(SwerveModuleState[] states) {
         frontLeftWheel.setState(states[0]);
         frontRightWheel.setState(states[1]);
         backLeftWheel.setState(states[2]);
         backRightWheel.setState(states[3]);
+    }
+
+    public void setModuleStatesValues(SwerveModuleState[] states) {
+        frontLeftWheel.setState(states[0].speedMetersPerSecond,
+        states[0].angle
+        );
+        frontRightWheel.setState(states[1].speedMetersPerSecond,
+        states[1].angle
+        );
+        backLeftWheel.setState(states[2].speedMetersPerSecond,
+        states[2].angle
+        );
+        backRightWheel.setState(states[3].speedMetersPerSecond,
+        states[3].angle
+        );
     }
 
     public void stop() {

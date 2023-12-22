@@ -52,6 +52,19 @@ public final class SwerveModuleNeos {
         );
     }
 
+    public void setState(double velocityMpS, Rotation2d steerAngle){
+        SwerveModuleState desiredState = new SwerveModuleState(velocityMpS, steerAngle);
+        desiredState = SwerveModuleState.optimize(
+            desiredState,
+            getCurrentState().angle
+        );
+
+        driveMotor.set(desiredState.speedMetersPerSecond / SwerveConstants.CICADA_MAX_VELOCITY);
+        steerMotor.getPIDController().setReference(
+            desiredState.angle.getRadians(), CANSparkMax.ControlType.kPosition
+        );
+    }
+
     public SwerveModuleState getCurrentState() {
         return new SwerveModuleState(
             driveMotor.getEncoder().getVelocity(),
