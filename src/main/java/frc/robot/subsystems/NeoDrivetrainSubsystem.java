@@ -51,6 +51,7 @@ public class NeoDrivetrainSubsystem extends SubsystemBase {
         xSpeed * SwerveConstants.MAX_VELOCITY,
         ySpeed * SwerveConstants.MAX_VELOCITY,
         rotationSpeed * SwerveConstants.MAX_ANGULAR_VELOCITY);
+        System.out.println("XSpeed: "+xSpeed*SwerveConstants.MAX_VELOCITY+" YSpeed: "+ySpeed*SwerveConstants.MAX_VELOCITY+" RotationSpeed: "+rotationSpeed*SwerveConstants.MAX_ANGULAR_VELOCITY);
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(speeds);
         setModuleStates(states);
     }

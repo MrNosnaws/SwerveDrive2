@@ -9,17 +9,17 @@ public class DriveCommand extends CommandBase {
     private final NeoDrivetrainSubsystem drivetrain;
     private final Supplier<Double> xAxis;
     private final Supplier<Double> yAxis;
-    private final Supplier<Double> zAxis;
+    private final Supplier<Double> yAxisRotation;
 
     public DriveCommand(
         NeoDrivetrainSubsystem drivetrain, 
         Supplier<Double> xAxis, 
         Supplier<Double> yAxis, 
-        Supplier<Double> zAxis) {
+        Supplier<Double> yAxisRotation) {
             this.drivetrain = drivetrain;
             this.xAxis = xAxis;
             this.yAxis = yAxis;
-            this.zAxis = zAxis;
+            this.yAxisRotation = yAxisRotation;
 
             addRequirements(drivetrain);
         }
@@ -29,7 +29,7 @@ public class DriveCommand extends CommandBase {
 
     @Override 
     public void execute() {
-        drivetrain.drive(xAxis.get(), yAxis.get(), zAxis.get()); //is this right
+        drivetrain.drive(deadzone(xAxis.get()), deadzone(yAxis.get()), deadzone(yAxisRotation.get())); //is this right
     }
 
     @Override
@@ -40,5 +40,9 @@ public class DriveCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         drivetrain.stop();
+    }
+    
+    public double deadzone(double input) {
+        return Math.abs(input) < 0.15 ? 0 : input;
     }
 }

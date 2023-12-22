@@ -28,7 +28,7 @@ public final class SwerveModuleNeos {
         canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
 
         driveMotor = new CANSparkMax(driveCanCoderChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
-        steerMotor = new CANSparkMax(driveCanCoderChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
+        steerMotor = new CANSparkMax(steerCanCoderChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
         canCoder = new CANCoder(canCoderChannel);
 
         driveMotor.setInverted(Constants.SwerveConstants.driveInverted);
@@ -42,9 +42,10 @@ public final class SwerveModuleNeos {
         double desiredRadians = actualState.angle.getRadians();
 
         
-        //take desired velocity and divide it by our max velocity to make a percentage
+        //take desired velocity and divide it by our max velocity to make a percentage        
         driveMotor.set(
-            desiredMetersPerSecond / SwerveConstants.MAX_VELOCITY);
+            desiredMetersPerSecond / SwerveConstants.MAX_VELOCITY
+            );
 
         steerMotor.getPIDController().setReference( 
         desiredRadians, CANSparkMax.ControlType.kPosition
