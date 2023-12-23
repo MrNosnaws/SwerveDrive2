@@ -64,7 +64,7 @@ public final class SwerveDriveModule {
         we multiply it by drive reduction which scales it to the correct gear ratio.
 
         we take all that and divide it by 60 to get m/s/tick. This assumed that the first value represents one minute.
-        we divide desiredM/S by this value to convert desiredMetersPerSecond to motor ticks.
+        we multiply desiredM/S by this value to convert desiredMetersPerSecond to motor ticks.
         */
         return new SwerveModuleState(
             driveMotor.getSelectedSensorVelocity() * SwerveConstants.DRIVE_VELOCITY_CONVERSION,
